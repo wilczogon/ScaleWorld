@@ -1,0 +1,31 @@
+body {
+    background-color: gray;
+}
+
+h1 {
+    color: black;
+}
+
+#header {
+	text-align: center;
+}
+
+#return {
+	text-align: center;
+	margin-top: 5%;
+}
+
+#content {
+	background-color: white;
+	width: 80%;
+	padding: 5%;
+	margin: auto;
+}
+
+#mini_img {
+	height: 100px;
+}
+
+#monster_img {
+	width: 300px;
+}
