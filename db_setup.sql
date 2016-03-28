@@ -49,7 +49,7 @@ CREATE TABLE habitat (
 -- insert data into tables
 
 INSERT INTO wilderness (id, name, active, imageUrl)
-	VALUES ('forest', 'Forest', 1, '');
+	VALUES ('forest', 'Forest', 1, '/imgs/forest.jpg');
 
 INSERT INTO species (id, name, active)
 	VALUES ('green_dragon', 'Green Dragon', 1);

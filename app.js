@@ -51,6 +51,30 @@ app.get('/monsters/:monster_id', function(req, res) {
 	});
 });
 
+app.get('/wildernesses', function(req, res) {
+	dbUtils.getAvailableWildernesses(connection, function(wildernessesData){
+		res.render('wildernesses', {
+			title: 'Scale World - Wildernesses',
+			wildernessesData: wildernessesData,
+			returnAvailable: true,
+			returnUrl: '/'
+        });
+	});
+});
+
+app.get('/wildernesses/:wilderness_id', function(req, res) {
+	var wildernessId = req.params.wilderness_id;
+	dbUtils.getAvailableWildernessById(connection, wildernessId, function(wildernessData){
+		res.render('wilderness', {
+			title: 'Scale World - ' + wildernessData.name,
+			name: wildernessData.name,
+			imageUrl: wildernessData.imageUrl,
+			returnAvailable: true,
+			returnUrl: '/wildernesses'
+        });
+	});
+});
+
 var server = app.listen(8081, function () {
 
 	var host = server.address().address

@@ -12,5 +12,19 @@ module.exports = {
 			if(err) throw err;
 			callback(rows);
 		});
+	},
+	
+	getAvailableWildernesses: function(connection, callback) {
+		connection.query('select id, name from scaleworlddb.wilderness wild where active = 1', function(err, rows, fields) { //TODO %d
+			if(err) throw err;
+			callback(rows);
+		});
+	},
+	
+	getAvailableWildernessById: function(connection, wildernessId, callback) {
+		connection.query('select name, imageUrl from scaleworlddb.wilderness wild where active = 1 and id = \'' + wildernessId + '\'', function(err, rows, fields) { //TODO %d
+			if(err) throw err;
+			callback(rows[0]);
+		});
 	}
 };
