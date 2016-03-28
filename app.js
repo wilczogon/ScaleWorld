@@ -1,13 +1,14 @@
 var express = require('express');
 var mustacheExpress = require('mustache-express');
 var mysql = require('mysql');
+var dbUtils = require('./databaseUtils/mysqlDatabaseUtils');
 
 var app = express();
 app.engine('html', mustacheExpress());
 var connection = mysql.createConnection({
 	host: 'localhost',
-	user: 'admin',
-	password: 'wilczogon7'
+	user: 'test',
+	password: 'test'
 });
 connection.connect();
 
@@ -22,55 +23,33 @@ app.get('/', function(req, res) {
     }
 );
 
-app.get('/monsters', function(req, res) {
-	connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
-		if (err) throw err;
-		console.log('The solution is: ', rows[0].solution);
-	}
-);
-	
-    res.render('monsters', {
-			title: 'Scale World - Kazik\'s Monsters',
-			playerName: 'Kazik2',
-			monstersData: [
-				{
-					id: 1,
-					name: 'Kokeshi',
-					pictureUrl: '/imgs/example_mini.jpg'
-				},
-				{
-					id: 2,
-					name: 'Ala',
-					pictureUrl: '/imgs/example_mini.jpg'
-				},
-				{
-					id: 3,
-					name: 'John',
-					pictureUrl: '/imgs/example_mini.jpg'
-				}
-			],
+app.get('/players/:player_id/monsters', function(req, res) {
+	var playerId = req.params.player_id;
+	dbUtils.getMonstersDataByOwner(connection, playerId, function(monstersData){
+		res.render('monsters', {
+			title: 'Scale World - ' + playerId + '\'s Monsters',
+			monstersData: monstersData,
 			returnAvailable: true,
 			returnUrl: '/'
-        });
-    }
-);
+		});
+	});
+});
 
 app.get('/monsters/:monster_id', function(req, res) {
 	var monsterId = req.params.monster_id;
-	//TODO add operations on database
-	
-    res.render('monster', {
-			title: 'Scale World - Kokeshi\'s Profile',
-			pictureUrl: '/imgs/example.jpg',
-            name: 'Kokeshi',
-			race: 'Green Dragon',
-			gender: 'Female',
-			age: '3 years',
+	dbUtils.getMonsterDataById(connection, monsterId, function(monsterData){
+		res.render('monster', {
+			title: 'Scale World - ' + monsterData.name + '\'s Profile',
+			imageUrl: monsterData.imageUrl,
+            name: monsterData.name,
+			species: monsterData.species,
+			gender: monsterData.gender,
+			age: monsterData.age,
 			returnAvailable: true,
-			returnUrl: '/monsters'
+			returnUrl: '/players/' + monsterData.owner + '/monsters'
         });
-    }
-);
+	});
+});
 
 var server = app.listen(8081, function () {
 
