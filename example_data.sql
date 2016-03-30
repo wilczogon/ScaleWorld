@@ -8,3 +8,6 @@ INSERT INTO monster (id, name, owner, species, gender, birth)
 	
 INSERT INTO monster (id, name, owner, species, gender, birth)
 	VALUES (3, 'John', 'Kazik2', 'green_dragon', 'M', '1992-12-01');
+	
+INSERT INTO inventory (item, player, amount)
+	VALUES ('strawberry', 'Kazik2', 5);

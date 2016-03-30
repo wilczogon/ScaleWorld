@@ -15,6 +15,11 @@ h1 {
 	margin-top: 5%;
 }
 
+#menu {
+	padding: auto;
+	margin: auto;
+}
+
 #content {
 	background-color: white;
 	width: 80%;

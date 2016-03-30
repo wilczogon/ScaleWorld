@@ -27,7 +27,7 @@ app.get('/players/:player_id/monsters', function(req, res) {
 	var playerId = req.params.player_id;
 	dbUtils.getMonstersDataByOwner(connection, playerId, function(monstersData){
 		res.render('monsters', {
-			title: 'Scale World - ' + playerId + '\'s Monsters',
+			title: playerId + '\'s Monsters',
 			monstersData: monstersData,
 			returnAvailable: true,
 			returnUrl: '/'
@@ -39,7 +39,7 @@ app.get('/monsters/:monster_id', function(req, res) {
 	var monsterId = req.params.monster_id;
 	dbUtils.getMonsterDataById(connection, monsterId, function(monsterData){
 		res.render('monster', {
-			title: 'Scale World - ' + monsterData.name + '\'s Profile',
+			title: monsterData.name + '\'s Profile',
 			imageUrl: monsterData.imageUrl,
             name: monsterData.name,
 			species: monsterData.species,
@@ -54,7 +54,7 @@ app.get('/monsters/:monster_id', function(req, res) {
 app.get('/wildernesses', function(req, res) {
 	dbUtils.getAvailableWildernesses(connection, function(wildernessesData){
 		res.render('wildernesses', {
-			title: 'Scale World - Wildernesses',
+			title: 'Wildernesses',
 			wildernessesData: wildernessesData,
 			returnAvailable: true,
 			returnUrl: '/'
@@ -66,11 +66,35 @@ app.get('/wildernesses/:wilderness_id', function(req, res) {
 	var wildernessId = req.params.wilderness_id;
 	dbUtils.getAvailableWildernessById(connection, wildernessId, function(wildernessData){
 		res.render('wilderness', {
-			title: 'Scale World - ' + wildernessData.name,
+			title: wildernessData.name,
 			name: wildernessData.name,
 			imageUrl: wildernessData.imageUrl,
 			returnAvailable: true,
 			returnUrl: '/wildernesses'
+        });
+	});
+});
+
+app.post('/wildernesses/:wilderness_id', function(req, res) {
+	var wildernessId = req.params.wilderness_id;
+	dbUtils.getAvailableWildernessById(connection, wildernessId, function(wildernessData){
+		res.render('wilderness', {
+			title: wildernessData.name,
+			name: wildernessData.name,
+			imageUrl: wildernessData.imageUrl,
+			returnAvailable: true,
+			returnUrl: '/wildernesses'
+        });
+	});
+});
+
+app.get('/inventory', function(req, res) {
+	dbUtils.getInventory(connection, 'Kazik2', function(inventoryData){
+		res.render('inventory', {
+			title: 'Inventory',
+			inventoryData: inventoryData,
+			returnAvailable: true,
+			returnUrl: '/'
         });
 	});
 });

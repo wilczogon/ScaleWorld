@@ -1,0 +1,8 @@
+{{>header}}
+	<ul>
+		{{#wildernessesData}}
+			<li><a href='/wildernesses/{{id}}'>{{name}}</a></li>
+		{{/wildernessesData}}
+		{{^wildernessesData}}No wildernesses available now.{{/wildernessesData}}
+	</ul>
+{{>footer}}

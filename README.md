@@ -16,7 +16,6 @@ Run:
 > npm install express  
 > npm install mustache-express  
 > npm install mysql  
-> npm install async-series  
 
 Then start your application:  
 > node app.js  

@@ -26,5 +26,12 @@ module.exports = {
 			if(err) throw err;
 			callback(rows[0]);
 		});
+	},
+	
+	getInventory: function(connection, playerId, callback){
+		connection.query('select inv.item, item.name, item.category, item.imageUrl, inv.amount from scaleworlddb.inventory inv join scaleworlddb.item item on inv.item = item.id where inv.player = \'' + playerId + '\'', function(err, rows, fields) { //TODO %d
+			if(err) throw err;
+			callback(rows);
+		});
 	}
 };
