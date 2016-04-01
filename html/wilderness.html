@@ -1,18 +1,19 @@
 {{>header}}
 	<img src = '{{imageUrl}}' id='wilderness_img' /><br/>
 	
-	<form action="#" method="post">
-		<input type="hidden" id="action" value="searchForMonsters" />
+	<form action="/adventure/{{id}}" method="post">
+		<input type="hidden" name="searchType" value="searchForMonsters" />
 		<button type="submit">Search for monsters</button>
 	</form>
 	
-	<form action="#" method="post">
-		<input type="hidden" id="action" value="searchForItems" />
-		<button type="submit">Search for items</button>
+	<form action="/adventure/{{id}}" method="post">
+		<input type="hidden" id="searchType" name="searchType" value="searchForItems" />
+		<input type="submit" value="Search for items" />
 	</form>
 	
-	<form action="#" method="post">
+	<!--
+	<form action="/adventure/{{id}}" method="post">
 		<input type="hidden" id="action" value="trackMetMonster" />
 		<button type="submit">Track already met monster</button>
-	</form>
+	</form>-->
 {{>footer}}

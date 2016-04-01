@@ -16,6 +16,8 @@ Run:
 > npm install express  
 > npm install mustache-express  
 > npm install mysql  
+> npm install body-parser
+> npm install util
 
 Then start your application:  
 > node app.js  

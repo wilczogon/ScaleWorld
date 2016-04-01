@@ -1,80 +1,94 @@
 CREATE DATABASE scaleworlddb;
 USE scaleworlddb;
 
+-- add needed functions
+
+DROP FUNCTION IF EXISTS gauss;
+
+DELIMITER $$
+CREATE FUNCTION gauss(mean double, stdev double) RETURNS double
+BEGIN
+set @x=rand(), @y=rand();
+set @gaus = ((sqrt(-2*log(@x))*cos(2*pi()*@y))*stdev)+mean;
+return @gaus;
+END$$
+DELIMITER ;
+
 -- create all needed tables
 
 CREATE TABLE species (
 	id varchar(20) PRIMARY KEY,
-	name varchar(50),
-	active CHAR(1)
+	name varchar(50) NOT NULL,
+	active CHAR(1) NOT NULL
 );
 
 CREATE TABLE monster (
 	id INTEGER PRIMARY KEY,
 	name VARCHAR(50), 
 	owner VARCHAR(20), 
-	species VARCHAR(20), 
-	gender CHAR(1), 
-	birth DATE
+	species VARCHAR(20) NOT NULL, 
+	gender CHAR(1) NOT NULL, 
+	birth DATE NOT NULL,
+	location VARCHAR(20)
 );
 
 CREATE TABLE monsterImage (
 	species VARCHAR(20) NOT NULL,
 	gender CHAR(1) NOT NULL,
-	imageUrl VARCHAR(255),
-	imageMiniUrl VARCHAR(255),
+	imageUrl VARCHAR(255) NOT NULL,
+	imageMiniUrl VARCHAR(255) NOT NULL,
 	PRIMARY KEY(species, gender)
 );
 
 CREATE TABLE player (
 	name VARCHAR(50) PRIMARY KEY,
-	passwordHash VARCHAR(255),
-	emailAddress VARCHAR(255),
-	amountOfGold INTEGER,
-	amountOfActionPoints INTEGER
+	passwordHash VARCHAR(255) NOT NULL,
+	emailAddress VARCHAR(255) NOT NULL,
+	amountOfGold INTEGER NOT NULL,
+	amountOfActionPoints INTEGER NOT NULL
 );
 
 CREATE TABLE wilderness (
 	id VARCHAR(20) PRIMARY KEY,
-	name VARCHAR(255),
-	active CHAR(1),
-	imageUrl VARCHAR(255)
+	name VARCHAR(255) NOT NULL,
+	active CHAR(1) NOT NULL,
+	imageUrl VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE habitat (
 	species VARCHAR(20) NOT NULL,
 	wilderness VARCHAR(20) NOT NULL,
-	rarity INTEGER,
+	rarity DOUBLE NOT NULL,
 	PRIMARY KEY(species, wilderness)
 );
 
 CREATE TABLE itemCategory (
 	id VARCHAR(20) PRIMARY KEY,
-	name VARCHAR(20)
+	name VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE item (
 	id VARCHAR(20) PRIMARY KEY,
-	name VARCHAR(255),
-	category VARCHAR(20),
-	shopPrice INTEGER,
-	imageUrl VARCHAR(255),
-	active CHAR(1)
+	name VARCHAR(255) NOT NULL,
+	category VARCHAR(20) NOT NULL,
+	shopPrice INTEGER NOT NULL,
+	imageUrl VARCHAR(255) NOT NULL,
+	active CHAR(1) NOT NULL
 );
 
 CREATE TABLE inventory (
 	item VARCHAR(20) NOT NULL,
 	player VARCHAR(50) NOT NULL,
-	amount INTEGER,
+	amount INTEGER NOT NULL,
 	PRIMARY KEY(item, player)
 );
 
-CREATE TABLE itemsAvailability (
+CREATE TABLE itemAvailability (
 	item VARCHAR(20) NOT NULL,
 	wilderness VARCHAR(20) NOT NULL,
-	rarity DOUBLE,
-	foundAmountMean DOUBLE,
-	foundAmountDeviation DOUBLE,
+	rarity DOUBLE NOT NULL,
+	foundAmountMean DOUBLE NOT NULL,
+	foundAmountDeviation DOUBLE NOT NULL,
 	PRIMARY KEY(item, wilderness)
 );
 
@@ -93,10 +107,13 @@ INSERT INTO monsterImage (species, gender, imageUrl, imageMiniUrl)
 	VALUES ('green_dragon', 'M', '/imgs/green_dragon_male.png', '/imgs/green_dragon_male_mini.png');
 	
 INSERT INTO habitat (species, wilderness, rarity)
-	VALUES ('green_dragon', 'forest', 1);
+	VALUES ('green_dragon', 'forest', 0.4);
 	
 INSERT INTO itemCategory (id, name)
 	VALUES ('food', 'Food');
 	
 INSERT INTO item (id, name, category, shopPrice, imageUrl, active)
 	VALUES ('strawberry', 'Strawberry', 'food', 1, '/imgs/strawberry.jpg', 1);
+	
+INSERT INTO itemAvailability (item, wilderness, rarity, foundAmountMean, foundAmountDeviation)
+	VALUES ('strawberry', 'forest', 0.3, 6, 3);

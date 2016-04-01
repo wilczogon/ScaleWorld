@@ -1,9 +1,13 @@
 var express = require('express');
 var mustacheExpress = require('mustache-express');
 var mysql = require('mysql');
+var bodyParser = require('body-parser')
 var dbUtils = require('./databaseUtils/mysqlDatabaseUtils');
 
 var app = express();
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.engine('html', mustacheExpress());
 var connection = mysql.createConnection({
 	host: 'localhost',
@@ -67,6 +71,7 @@ app.get('/wildernesses/:wilderness_id', function(req, res) {
 	dbUtils.getAvailableWildernessById(connection, wildernessId, function(wildernessData){
 		res.render('wilderness', {
 			title: wildernessData.name,
+			id: wildernessId,
 			name: wildernessData.name,
 			imageUrl: wildernessData.imageUrl,
 			returnAvailable: true,
@@ -75,17 +80,70 @@ app.get('/wildernesses/:wilderness_id', function(req, res) {
 	});
 });
 
-app.post('/wildernesses/:wilderness_id', function(req, res) {
+app.post('/adventure/:wilderness_id', function(req, res) {
 	var wildernessId = req.params.wilderness_id;
-	dbUtils.getAvailableWildernessById(connection, wildernessId, function(wildernessData){
-		res.render('wilderness', {
-			title: wildernessData.name,
-			name: wildernessData.name,
-			imageUrl: wildernessData.imageUrl,
-			returnAvailable: true,
-			returnUrl: '/wildernesses'
-        });
-	});
+	var adventureType = req.body.searchType;
+	
+	if(adventureType == 'searchForMonsters'){
+		if(Math.random() <= 0.6){
+			dbUtils.getMonsterAdventureResult(connection, wildernessId, function(monsterSearchData){
+				res.render('adventure', {
+					title: 'Adventure Result',
+					adventureType: adventureType,
+					monsterSearchData: monsterSearchData,
+					returnAvailable: true,
+					returnUrl: '/wildernesses'
+				});
+			});
+			return;
+		} else{
+			dbUtils.getItemAdventureResult(connection, 'Kazik2', wildernessId, function(itemSearchData){
+				res.render('adventure', {
+					title: 'Adventure Result',
+					adventureType: adventureType,
+					itemSearchData: itemSearchData,
+					returnAvailable: true,
+					returnUrl: '/wildernesses'
+				});
+			});
+			return;
+		}
+		/*dbUtils.getMonsterAdventureResult(connection, wildernessId, function(wildernessData){
+			res.render('adventure', {
+				title: wildernessData.name,
+				name: wildernessData.name,
+				imageUrl: wildernessData.imageUrl,
+				returnAvailable: true,
+				returnUrl: '/wildernesses'
+			});
+		});*/
+	} else if(adventureType == 'searchForItems'){
+		if(Math.random() <= 0.4){
+			dbUtils.getMonsterAdventureResult(connection, wildernessId, function(monsterSearchData){
+				res.render('adventure', {
+					title: 'Adventure Result',
+					adventureType: adventureType,
+					monsterSearchData: monsterSearchData,
+					returnAvailable: true,
+					returnUrl: '/wildernesses'
+				});
+			});
+			return;
+		} else{
+			dbUtils.getItemAdventureResult(connection, 'Kazik2', wildernessId, function(itemSearchData){
+				res.render('adventure', {
+					title: 'Adventure Result',
+					adventureType: adventureType,
+					itemSearchData: itemSearchData,
+					returnAvailable: true,
+					returnUrl: '/wildernesses'
+				});
+			});
+			return;
+		}
+	} //else if(adventureType == 'trackMetMonster'){
+		//TODO
+	//}
 });
 
 app.get('/inventory', function(req, res) {

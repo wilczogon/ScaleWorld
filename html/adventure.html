@@ -1,0 +1,38 @@
+{{>header}}
+	{{#itemSearchData}}Your found following items:
+	<table>
+		{{#itemSearchData}}
+			<tr>
+				<td><img src='{{imageUrl}}' id='mini_img' /></td> <td>{{name}} x{{amount}}</td>
+			</tr>
+		{{/itemSearchData}}
+	</table>
+	{{/itemSearchData}}
+	
+	{{#monsterSearchData}}Wild monster appeared!
+	<table>
+		<tr>
+			<td><img src='{{imageUrl}}' id="monster_img" /></td>
+			<td>
+				<table>
+					<tr> <td><b>Name:</b></td> <td>{{name}}</td> </tr>
+					<tr> <td><b>Species:</b></td> <td>{{species}}</td> </tr>
+					<tr> <td><b>Gender:</b></td> <td>{{gender}}</td> </tr>
+					<tr> <td><b>Age:</b></td> <td>{{age}} years</td> </tr>
+				</table>
+				<form action="" method="post">
+					<button type="submit">Try to catch it</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+	{{/monsterSearchData}}
+	
+	
+	{{^monsterSearchData}}{{^itemSearchData}}You didn't found anything or meet anyone.{{/itemSearchData}}{{/monsterSearchData}}
+	<form action="#" method="post">
+		<input type="hidden" name="searchType" value="{{adventureType}}" />
+		<button type="submit">Continue</button>
+	</form>
+	
+{{>footer}}
