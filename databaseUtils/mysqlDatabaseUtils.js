@@ -1,6 +1,19 @@
 util = require('util');
 
 module.exports = {
+	getUser: function(connection, playerId, callback) {
+		connection.query(
+			util.format(
+				'SELECT name as username, passwordHash as password from scaleworlddb.player where name=\'%s\';', playerId),
+			function(err, rows, fields) {
+			if(err) throw err;
+			if(rows.length > 0)
+				callback(rows[0]);
+			else
+				callback(null);
+		});
+	},
+	
 	getMonsterDataById: function(connection, monsterId, callback) {
 		connection.query(
 			util.format(

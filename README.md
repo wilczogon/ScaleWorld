@@ -18,6 +18,8 @@ Run:
 > npm install mysql  
 > npm install body-parser
 > npm install util
+> npm install passport
+> npm install passport-local
 
 Then start your application:  
 > node app.js  

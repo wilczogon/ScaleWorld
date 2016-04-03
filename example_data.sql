@@ -11,3 +11,6 @@ INSERT INTO monster (id, name, owner, species, gender, birth, location)
 	
 INSERT INTO inventory (item, player, amount)
 	VALUES ('strawberry', 'Kazik2', 5);
+	
+INSERT INTO player (name, passwordHash, emailAddress, amountOfGold, amountOfActionPoints)
+	VALUES ('Kazik2', 'test', 'kazik2@gmail.com', 200, 10);
