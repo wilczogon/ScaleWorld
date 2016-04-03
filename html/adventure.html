@@ -21,7 +21,7 @@
 					<tr> <td><b>Age:</b></td> <td>{{age}} years</td> </tr>
 				</table>
 				<form action="" method="post">
-					<button type="submit">Try to catch it</button>
+					<input type="submit" value="Try to catch it" />
 				</form>
 			</td>
 		</tr>
@@ -32,7 +32,7 @@
 	{{^monsterSearchData}}{{^itemSearchData}}You didn't found anything or meet anyone.{{/itemSearchData}}{{/monsterSearchData}}
 	<form action="#" method="post">
 		<input type="hidden" name="searchType" value="{{adventureType}}" />
-		<button type="submit">Continue</button>
+		<input type="submit" value="Continue Adventure" />
 	</form>
 	
 {{>footer}}

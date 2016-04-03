@@ -1,15 +1,17 @@
 {{>header}}
 	<center><img src = '{{imageUrl}}' class='wilderness_img' /></center><br/>
 	
-	<form action="#" method="post">
-		<input type="hidden" name="searchType" value="searchForMonsters" />
-		<button type="submit">Search for monsters</button>
-	</form>
-	
-	<form action="#" method="post">
-		<input type="hidden" id="searchType" name="searchType" value="searchForItems" />
-		<input type="submit" value="Search for items" />
-	</form>
+	<div class="inputCenter">
+		<form action="#" method="post">
+			<input type="hidden" name="searchType" value="searchForMonsters" />
+			<input type="submit" class="menuButton" value="Search for monsters" />
+		</form>
+		
+		<form action="#" method="post">
+			<input type="hidden" id="searchType" name="searchType" value="searchForItems" />
+			<input type="submit" class="menuButton" value="Search for items" />
+		</form>
+	</div>
 	
 	<!--
 	<form action="/adventure/{{id}}" method="post">
