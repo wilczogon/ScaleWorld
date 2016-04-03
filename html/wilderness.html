@@ -1,12 +1,12 @@
 {{>header}}
-	<img src = '{{imageUrl}}' id='wilderness_img' /><br/>
+	<center><img src = '{{imageUrl}}' class='wilderness_img' /></center><br/>
 	
-	<form action="/adventure/{{id}}" method="post">
+	<form action="#" method="post">
 		<input type="hidden" name="searchType" value="searchForMonsters" />
 		<button type="submit">Search for monsters</button>
 	</form>
 	
-	<form action="/adventure/{{id}}" method="post">
+	<form action="#" method="post">
 		<input type="hidden" id="searchType" name="searchType" value="searchForItems" />
 		<input type="submit" value="Search for items" />
 	</form>

@@ -51,7 +51,7 @@ module.exports = {
 	getMonsterAdventureResult: function(connection, wildernessId, callback) {
 		connection.query(
 			util.format(
-				'select mon.name, mon.species, mon.gender, TIMESTAMPDIFF(YEAR, mon.birth, CURDATE()) as age, (select imageUrl from scaleworlddb.monsterImage mi where mi.species = mon.species and mi.gender = mon.gender) as imageUrl from scaleworlddb.monster mon ' +
+				'select mon.name, (select name from scaleworlddb.species sp where sp.id=mon.species) as species, mon.gender, TIMESTAMPDIFF(YEAR, mon.birth, CURDATE()) as age, (select imageUrl from scaleworlddb.monsterImage mi where mi.species = mon.species and mi.gender = mon.gender) as imageUrl from scaleworlddb.monster mon ' +
 				'join scaleworlddb.habitat hab on hab.species = mon.species ' +
 				'where mon.location=\'%s\' and hab.rarity >= rand() ' +
 				'order by rand() limit 1;', wildernessId),

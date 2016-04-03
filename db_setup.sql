@@ -96,6 +96,8 @@ CREATE TABLE itemAvailability (
 
 INSERT INTO wilderness (id, name, active, imageUrl)
 	VALUES ('forest', 'Forest', 1, '/imgs/forest.jpg');
+	
+-- green dragon
 
 INSERT INTO species (id, name, active)
 	VALUES ('green_dragon', 'Green Dragon', 1);
@@ -109,8 +111,23 @@ INSERT INTO monsterImage (species, gender, imageUrl, imageMiniUrl)
 INSERT INTO habitat (species, wilderness, rarity)
 	VALUES ('green_dragon', 'forest', 0.4);
 	
+-- gray dragon
+	
+INSERT INTO species (id, name, active)
+	VALUES ('gray_dragon', 'Gray Dragon', 1);
+	
+INSERT INTO monsterImage (species, gender, imageUrl, imageMiniUrl)
+	VALUES ('gray_dragon', 'F', '/imgs/gray_dragon_female.png', '/imgs/gray_dragon_female_mini.png');
+	
+INSERT INTO habitat (species, wilderness, rarity)
+	VALUES ('gray_dragon', 'forest', 0.4);
+	
+-- food
+	
 INSERT INTO itemCategory (id, name)
 	VALUES ('food', 'Food');
+	
+-- strawberries
 	
 INSERT INTO item (id, name, category, shopPrice, imageUrl, active)
 	VALUES ('strawberry', 'Strawberry', 'food', 1, '/imgs/strawberry.jpg', 1);

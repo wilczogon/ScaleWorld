@@ -1,9 +1,46 @@
-body {
-    background-color: gray;
+html, body {
+    background-color: #E0F8F7;
+	padding: 0;
+	margin: 0;
+	border: 0;
 }
 
 h1 {
-    color: black;
+	color: black;
+	text-align: center;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+table {
+	margin-left:auto; 
+    margin-right:auto;
+}
+
+th, td {
+    padding: 10px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+    text-align: left;
+}
+
+#centerPart {
+	position: absolute;
+	top: 0;
+	left: 0;
+    right: 0;
+	width: 60%;
+	min-height: 100%;
+	background-color: white;
+	margin: auto;
+	padding: auto;
+	border-left-style: solid;
+	border-right-style: solid;
+	border-color: gray;
+	border-width: 2px;
 }
 
 #header {
@@ -12,29 +49,42 @@ h1 {
 
 #return {
 	text-align: center;
-	margin-top: 5%;
+	padding: auto;
+	margin: auto;
+	margin-top: 10%;
 }
 
 #menu {
+	width: 60%;
+	text-align: center;
 	padding: auto;
 	margin: auto;
+	margin-bottom: 2%;
 }
 
 #content {
-	background-color: white;
-	width: 80%;
-	padding: 5%;
-	margin: auto;
+	color: black;
+	width: 90%;
+	#padding: 3%;
+	margin: 5%;
 }
 
-#mini_img {
+.mini_img {
 	height: 100px;
 }
 
-#monster_img {
+.monster_img {
 	width: 300px;
 }
 
-#wilderness_img {
+.wilderness_img {
 	width: 80%;
+}
+
+.roundButton {
+	border-style: solid;
+	border-color: gray;
+	border-width: 2px;
+	border-radius: 10px;
+	width: 20%;
 }

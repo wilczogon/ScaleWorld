@@ -80,7 +80,7 @@ app.get('/wildernesses/:wilderness_id', function(req, res) {
 	});
 });
 
-app.post('/adventure/:wilderness_id', function(req, res) {
+app.post('/wildernesses/:wilderness_id', function(req, res) {
 	var wildernessId = req.params.wilderness_id;
 	var adventureType = req.body.searchType;
 	
