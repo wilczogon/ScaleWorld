@@ -53,6 +53,19 @@ th, td {
 
 #header {
 	text-align: center;
+	position: relative;
+}
+
+#userInfo {
+	color: gray;
+	font-size: small;
+	position: absolute;
+    right: 10px;
+	display: inline-block;
+}
+
+.userInfoTable{
+	text-align: right;
 }
 
 .inputCenter {

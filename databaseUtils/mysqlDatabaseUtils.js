@@ -1,10 +1,35 @@
 util = require('util');
 
 module.exports = {
+	addUser: function(connection, nickname, passwordHash, emailAddress, gender, callback) {
+		connection.query(
+			util.format(
+				'INSERT INTO scaleworlddb.player (name, passwordHash, emailAddress, gender, amountOfGold, amountOfActionPoints) ' +
+				'VALUES (\'%s\', \'%s\', \'%s\', \'%s\', %d, %d);', nickname, passwordHash, emailAddress, gender, 200, 10),
+			function(err, rows, fields) {
+				if(err) throw err;
+				callback();
+			}
+		);
+	},
+
 	getUser: function(connection, playerId, callback) {
 		connection.query(
 			util.format(
-				'SELECT name as username, passwordHash as password from scaleworlddb.player where name=\'%s\';', playerId),
+				'SELECT name as username, passwordHash as password, amountOfGold, amountOfActionPoints from scaleworlddb.player where name=\'%s\';', playerId),
+			function(err, rows, fields) {
+			if(err) throw err;
+			if(rows.length > 0)
+				callback(rows[0]);
+			else
+				callback(null);
+		});
+	},
+	
+	getUserInfo: function(connection, playerId, callback) {
+		connection.query(
+			util.format(
+				'SELECT name as username, gender, amountOfGold, amountOfActionPoints from scaleworlddb.player where name=\'%s\';', playerId),
 			function(err, rows, fields) {
 			if(err) throw err;
 			if(rows.length > 0)

@@ -7,11 +7,28 @@
 	<body>
 		<div id="centerPart">
 			<div id="header">
-				<img src="/imgs/logo.png" id="logo" />
+				<a href='/'><img src="/imgs/logo.png" id="logo" /></a>
+				{{#user}}
+				<div id="userInfo">
+					<table class="userInfoTable">
+						<tr><td class="userInfoTable">Logged as {{username}}</td></tr>
+						<tr>
+							<td class="userInfoTable">Gold: {{amountOfGold}} coins</td></tr>
+							<tr><td class="userInfoTable">Action Points: {{amountOfActionPoints}}</td>
+						</tr>
+						<tr><td class="userInfoTable"><a href="/logout">Log out</a></td></tr>
+					</table>
+				</div>
+				{{/user}}
 			</div>
 			<div id="menu">
 				<hr>
-				<a href='/players/Kazik2'>My Profile</a> | <a href='/inventory'>Inventory</a> | <a href='/players/Kazik2/monsters'>Monsters</a> | <a href='/wildernesses'>Go on Adventure</a>
+				{{#user}}
+					<a href='/players/{{username}}'>My Profile</a> | <a href='/inventory'>Inventory</a> | <a href='/players/{{username}}/monsters'>Monsters</a> | <a href='/wildernesses'>Go on Adventure</a>
+				{{/user}}
+				{{^user}}
+					<a href='/login'>Login</a> | <a href='/register'>Register</a>
+				{{/user}}
 				<hr>
 			</div>
 			<div id="content">

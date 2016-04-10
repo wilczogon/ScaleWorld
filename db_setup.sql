@@ -44,6 +44,7 @@ CREATE TABLE player (
 	name VARCHAR(50) PRIMARY KEY,
 	passwordHash VARCHAR(255) NOT NULL,
 	emailAddress VARCHAR(255) NOT NULL,
+	gender CHAR(1) NOT NULL,
 	amountOfGold INTEGER NOT NULL,
 	amountOfActionPoints INTEGER NOT NULL
 );
@@ -103,7 +104,7 @@ INSERT INTO species (id, name, active)
 	VALUES ('green_dragon', 'Green Dragon', 1);
 	
 INSERT INTO monsterImage (species, gender, imageUrl, imageMiniUrl)
-	VALUES ('green_dragon', 'F', '/imgs/green_dragon_female.jpg', '/imgs/green_dragon_female_mini.jpg');
+	VALUES ('green_dragon', 'F', '/imgs/green_dragon_female.png', '/imgs/green_dragon_female_mini.png');
 	
 INSERT INTO monsterImage (species, gender, imageUrl, imageMiniUrl)
 	VALUES ('green_dragon', 'M', '/imgs/green_dragon_male.png', '/imgs/green_dragon_male_mini.png');
@@ -118,6 +119,9 @@ INSERT INTO species (id, name, active)
 	
 INSERT INTO monsterImage (species, gender, imageUrl, imageMiniUrl)
 	VALUES ('gray_dragon', 'F', '/imgs/gray_dragon_female.png', '/imgs/gray_dragon_female_mini.png');
+	
+INSERT INTO monsterImage (species, gender, imageUrl, imageMiniUrl)
+	VALUES ('gray_dragon', 'M', '/imgs/gray_dragon_male.png', '/imgs/gray_dragon_male_mini.png');
 	
 INSERT INTO habitat (species, wilderness, rarity)
 	VALUES ('gray_dragon', 'forest', 0.4);

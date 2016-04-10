@@ -1,0 +1,35 @@
+{{> header}}
+	{{^success}}
+		<form action="/register" method="post">
+			<table>
+				<tr>
+					<th><label>Username:</label></th>
+					<td><input type="text" name="username" required/> <i>{{userExists}}</i></td>
+				</tr>
+				<tr>
+					<th><label>Email address:</label></th>
+					<td><input type="text" name="email" required/></td>
+				</tr>
+				<tr>
+					<th><label>Password:</label></th>
+					<td><input type="password" name="password" required/></td>
+				</tr>
+				<tr>
+					<th><label>Confirm password:</label></th>
+					<td><input type="password" name="password2" required/> <i>{{differentPassword}}</i></td>
+				</tr>
+				<tr>
+					<th><label>Gender:</label></th>
+					<td><input type="radio" name="gender" value="M" required>Male</input>
+					<input type="radio" name="gender" value="F" required>Female</input></td>
+				</tr>
+			</table>
+			<div class="inputCenter">
+				<input type="submit" value="Register"/>
+			</div>
+		</form>
+	{{/success}}
+	{{#success}}
+		You are registered. Please <a href="/login"><u>log in</u></a>.
+	{{/success}}
+{{>footer}}

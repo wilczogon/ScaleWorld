@@ -32,7 +32,8 @@ app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
 	res.render('index', {
-			title: 'Welcome in Scale World!'
+			title: 'Welcome in Scale World!',
+			user: req.user
         });
     }
 );
@@ -40,7 +41,8 @@ app.get('/', function(req, res) {
 app.get('/login', function(req, res) {
 	res.render('login', {
 			title: 'Please log in',
-			message: req.flash('error')[0]
+			message: req.flash('error')[0],
+			user: req.user
         });
     }
 );
@@ -51,22 +53,62 @@ app.post('/login',
                                    failureFlash: true })
 );
 
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 app.get('/register', function(req, res) {
 	res.render('register', {
-			title: 'Registration'
+			title: 'Registration',
+			differentPassword: req.flash('differentPassword'),
+			userExists: req.flash('userExists'),
+			success: req.flash('success'),
+			user: req.user
         });
     }
 );
+
+app.post('/register', function(req, res) {
+	if(req.body.password != req.body.password2){
+		req.flash('differentPassword', 'Password not confirmed.');
+		res.redirect('/register');
+	} else
+		dbUtils.getUser(connection, req.body.username, function(user){
+			if(user != null){
+				req.flash('userExists', 'User with this nickname already exists.');
+				res.redirect('/register');
+			} else{
+				dbUtils.addUser(connection, req.body.username, req.body.password, req.body.email, req.body.gender, function(){
+					req.flash('success', true);
+					res.redirect('/login');
+				});
+			}
+		});
+});
+
+app.get('/players/:player_id', isAuthenticated, function(req, res) {
+	var playerId = req.params.player_id;
+	dbUtils.getUserInfo(connection, playerId, function(playerData){
+		res.render('profile', {
+			title: playerId + '\'s Profile',
+			playerData: playerData,
+			returnAvailable: true,
+			returnUrl: '/',
+			user: req.user
+		});
+	});
+});
 
 app.get('/players/:player_id/monsters', isAuthenticated, function(req, res) {
 	var playerId = req.params.player_id;
 	dbUtils.getMonstersDataByOwner(connection, playerId, function(monstersData){
 		res.render('monsters', {
-			user: req.user,
 			title: playerId + '\'s Monsters',
 			monstersData: monstersData,
 			returnAvailable: true,
-			returnUrl: '/'
+			returnUrl: '/',
+			user: req.user
 		});
 	});
 });
@@ -82,7 +124,8 @@ app.get('/monsters/:monster_id', isAuthenticated, function(req, res) {
 			gender: monsterData.gender,
 			age: monsterData.age,
 			returnAvailable: true,
-			returnUrl: '/players/' + monsterData.owner + '/monsters'
+			returnUrl: '/players/' + monsterData.owner + '/monsters',
+			user: req.user
         });
 	});
 });
@@ -93,7 +136,8 @@ app.get('/wildernesses', isAuthenticated, function(req, res) {
 			title: 'Wildernesses',
 			wildernessesData: wildernessesData,
 			returnAvailable: true,
-			returnUrl: '/'
+			returnUrl: '/',
+			user: req.user
         });
 	});
 });
@@ -107,7 +151,8 @@ app.get('/wildernesses/:wilderness_id', isAuthenticated, function(req, res) {
 			name: wildernessData.name,
 			imageUrl: wildernessData.imageUrl,
 			returnAvailable: true,
-			returnUrl: '/wildernesses'
+			returnUrl: '/wildernesses',
+			user: req.user
         });
 	});
 });
@@ -124,7 +169,8 @@ app.post('/wildernesses/:wilderness_id', isAuthenticated, function(req, res) {
 					adventureType: adventureType,
 					monsterSearchData: monsterSearchData,
 					returnAvailable: true,
-					returnUrl: '/wildernesses'
+					returnUrl: '/wildernesses',
+					user: req.user
 				});
 			});
 			return;
@@ -135,7 +181,8 @@ app.post('/wildernesses/:wilderness_id', isAuthenticated, function(req, res) {
 					adventureType: adventureType,
 					itemSearchData: itemSearchData,
 					returnAvailable: true,
-					returnUrl: '/wildernesses'
+					returnUrl: '/wildernesses',
+					user: req.user
 				});
 			});
 			return;
@@ -157,7 +204,8 @@ app.post('/wildernesses/:wilderness_id', isAuthenticated, function(req, res) {
 					adventureType: adventureType,
 					monsterSearchData: monsterSearchData,
 					returnAvailable: true,
-					returnUrl: '/wildernesses'
+					returnUrl: '/wildernesses',
+					user: req.user
 				});
 			});
 			return;
@@ -168,7 +216,8 @@ app.post('/wildernesses/:wilderness_id', isAuthenticated, function(req, res) {
 					adventureType: adventureType,
 					itemSearchData: itemSearchData,
 					returnAvailable: true,
-					returnUrl: '/wildernesses'
+					returnUrl: '/wildernesses',
+					user: req.user
 				});
 			});
 			return;
@@ -184,7 +233,8 @@ app.get('/inventory', isAuthenticated, function(req, res) {
 			title: 'Inventory',
 			inventoryData: inventoryData,
 			returnAvailable: true,
-			returnUrl: '/'
+			returnUrl: '/',
+			user: req.user
         });
 	});
 });
