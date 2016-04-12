@@ -46,12 +46,21 @@ CREATE TABLE player (
 	emailAddress VARCHAR(255) NOT NULL,
 	gender CHAR(1) NOT NULL,
 	amountOfGold INTEGER NOT NULL,
-	amountOfActionPoints INTEGER NOT NULL
+	amountOfActionPoints INTEGER NOT NULL,
+	location VARCHAR(20)
+);
+
+CREATE TABLE land (
+	id VARCHAR(20) PRIMARY KEY,
+	name VARCHAR(255) NOT NULL,
+	active CHAR(1) NOT NULL,
+	imageUrl VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE wilderness (
 	id VARCHAR(20) PRIMARY KEY,
 	name VARCHAR(255) NOT NULL,
+	land VARCHAR(20) NOT NULL,
 	active CHAR(1) NOT NULL,
 	imageUrl VARCHAR(255) NOT NULL
 );
@@ -95,8 +104,11 @@ CREATE TABLE itemAvailability (
 
 -- insert data into tables
 
-INSERT INTO wilderness (id, name, active, imageUrl)
-	VALUES ('forest', 'Forest', 1, '/imgs/forest.jpg');
+INSERT INTO land (id, name, active, imageUrl)
+	VALUES ('middle_europe', 'Middle Europe', 1, '/imgs/forest.jpg');
+
+INSERT INTO wilderness (id, name, land, active, imageUrl)
+	VALUES ('forest', 'Forest', 'middle_europe', 1, '/imgs/middle_europe.jpg');
 	
 -- green dragon
 

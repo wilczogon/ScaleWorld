@@ -65,7 +65,7 @@ th, td {
 }
 
 .userInfoTable{
-	text-align: right;
+	text-align: center;
 }
 
 .inputCenter {
@@ -78,8 +78,9 @@ th, td {
 }
 
 #menu {
-	width: 60%;
+	width: 80%;
 	text-align: center;
+	line-height: 2;
 	padding: auto;
 	margin: auto;
 	margin-bottom: 2%;

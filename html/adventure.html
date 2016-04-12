@@ -29,10 +29,10 @@
 	{{/monsterSearchData}}
 	
 	
-	{{^monsterSearchData}}{{^itemSearchData}}You didn't found anything or meet anyone.{{/itemSearchData}}{{/monsterSearchData}}
+	{{^monsterSearchData}}{{^itemSearchData}}You didn't find anything or meet anyone.{{/itemSearchData}}{{/monsterSearchData}}
 	<form action="#" method="post">
 		<input type="hidden" name="searchType" value="{{adventureType}}" />
-		<input type="submit" value="Continue Adventure" />
+		<div class="inputCenter"><input type="submit" value="Continue Adventure" /></div>
 	</form>
 	
 {{>footer}}

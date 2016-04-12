@@ -9,7 +9,15 @@ var flash = require('connect-flash');
 var app = express();
 
 app.use(cookieParser('secret'));
-app.use(session({cookie: { maxAge: 60000 }}));
+app.use(session(
+	{
+		secret: 'keyboard cat',
+		cookie: {maxAge: 3600000},
+		rolling: true,
+        resave: true, 
+        saveUninitialized: false
+	}
+));
 app.use(flash());
 
 app.use(bodyParser.urlencoded({

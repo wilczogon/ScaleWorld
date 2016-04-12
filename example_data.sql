@@ -15,8 +15,8 @@ INSERT INTO monster (id, name, owner, species, gender, birth, location)
 INSERT INTO inventory (item, player, amount)
 	VALUES ('strawberry', 'Kazik2', 5);
 	
-INSERT INTO player (name, passwordHash, emailAddress, gender, amountOfGold, amountOfActionPoints)
-	VALUES ('Kazik2', 'test', 'kazik2@gmail.com', 'M', 200, 10);
+INSERT INTO player (name, passwordHash, emailAddress, gender, location, amountOfGold, amountOfActionPoints)
+	VALUES ('Kazik2', 'test', 'kazik2@gmail.com', 'M', 'middle_europe', 200, 10);
 	
-INSERT INTO player (name, passwordHash, emailAddress, gender, amountOfGold, amountOfActionPoints)
-	VALUES ('Kokeshi', 'test', 'kokeshi@gmail.com', 'F', 200, 10);
+INSERT INTO player (name, passwordHash, emailAddress, gender, location, amountOfGold, amountOfActionPoints)
+	VALUES ('Kokeshi', 'test', 'kokeshi@gmail.com', 'F', 'middle_europe', 200, 10);

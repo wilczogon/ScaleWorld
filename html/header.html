@@ -11,12 +11,10 @@
 				{{#user}}
 				<div id="userInfo">
 					<table class="userInfoTable">
-						<tr><td class="userInfoTable">Logged as {{username}}</td></tr>
-						<tr>
-							<td class="userInfoTable">Gold: {{amountOfGold}} coins</td></tr>
-							<tr><td class="userInfoTable">Action Points: {{amountOfActionPoints}}</td>
-						</tr>
-						<tr><td class="userInfoTable"><a href="/logout">Log out</a></td></tr>
+						<tr><td class="userInfoTable">Logged as {{username}} (<a href="/logout"><u>Log out</u></a>)</td></tr>
+						<tr><td class="userInfoTable">Location: {{location}}</td></tr>
+						<tr><td class="userInfoTable"><b>{{amountOfGold}}</b> gold coins</td></tr>
+						<tr><td class="userInfoTable"><b>{{amountOfActionPoints}}</b> action points</td></tr>
 					</table>
 				</div>
 				{{/user}}
@@ -24,7 +22,7 @@
 			<div id="menu">
 				<hr>
 				{{#user}}
-					<a href='/players/{{username}}'>My Profile</a> | <a href='/inventory'>Inventory</a> | <a href='/players/{{username}}/monsters'>Monsters</a> | <a href='/wildernesses'>Go on Adventure</a>
+					<a href='/players/{{username}}'>My Profile</a> | <a href='/inventory'>Inventory</a> | <a href='/players/{{username}}/monsters'>Monsters</a> | <a href='/wildernesses'>Go on Adventure</a> | <a href='/travel'>Travel</a>
 				{{/user}}
 				{{^user}}
 					<a href='/login'>Login</a> | <a href='/register'>Register</a>

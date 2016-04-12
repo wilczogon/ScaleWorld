@@ -4,8 +4,8 @@ module.exports = {
 	addUser: function(connection, nickname, passwordHash, emailAddress, gender, callback) {
 		connection.query(
 			util.format(
-				'INSERT INTO scaleworlddb.player (name, passwordHash, emailAddress, gender, amountOfGold, amountOfActionPoints) ' +
-				'VALUES (\'%s\', \'%s\', \'%s\', \'%s\', %d, %d);', nickname, passwordHash, emailAddress, gender, 200, 10),
+				'INSERT INTO scaleworlddb.player (name, passwordHash, emailAddress, gender, amountOfGold, amountOfActionPoints, location) ' +
+				'VALUES (\'%s\', \'%s\', \'%s\', \'%s\', %d, %d);', nickname, passwordHash, emailAddress, gender, 200, 10, 'middle_europe'),
 			function(err, rows, fields) {
 				if(err) throw err;
 				callback();
@@ -16,7 +16,7 @@ module.exports = {
 	getUser: function(connection, playerId, callback) {
 		connection.query(
 			util.format(
-				'SELECT name as username, passwordHash as password, amountOfGold, amountOfActionPoints from scaleworlddb.player where name=\'%s\';', playerId),
+				'SELECT name as username, passwordHash as password, amountOfGold, amountOfActionPoints, (select name from scaleworlddb.land where id=location) as location from scaleworlddb.player where name=\'%s\';', playerId),
 			function(err, rows, fields) {
 			if(err) throw err;
 			if(rows.length > 0)
@@ -29,7 +29,7 @@ module.exports = {
 	getUserInfo: function(connection, playerId, callback) {
 		connection.query(
 			util.format(
-				'SELECT name as username, gender, amountOfGold, amountOfActionPoints from scaleworlddb.player where name=\'%s\';', playerId),
+				'SELECT name as username, gender, amountOfGold, amountOfActionPoints, (select name from scaleworlddb.land where id=location) as location from scaleworlddb.player where name=\'%s\';', playerId),
 			function(err, rows, fields) {
 			if(err) throw err;
 			if(rows.length > 0)
